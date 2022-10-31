@@ -44,6 +44,24 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: asteroid; Type: TABLE; Schema: public; Owner: freecodecamp
+--
+
+CREATE TABLE public.asteroid (
+    asteroid_id integer NOT NULL,
+    name character varying NOT NULL,
+    age integer NOT NULL,
+    distance_from_earth integer,
+    age_in_millions_of_years numeric,
+    has_life boolean,
+    description text,
+    galaxy_id integer
+);
+
+
+ALTER TABLE public.asteroid OWNER TO freecodecamp;
+
+--
 -- Name: galaxy; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
@@ -62,11 +80,11 @@ CREATE TABLE public.galaxy (
 ALTER TABLE public.galaxy OWNER TO freecodecamp;
 
 --
--- Name: star; Type: TABLE; Schema: public; Owner: freecodecamp
+-- Name: moon; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
-CREATE TABLE public.star (
-    star_id integer NOT NULL,
+CREATE TABLE public.moon (
+    moon_id integer NOT NULL,
     name character varying NOT NULL,
     age integer NOT NULL,
     distance_from_earth integer,
@@ -74,11 +92,11 @@ CREATE TABLE public.star (
     is_spherical boolean,
     has_life boolean,
     description text,
-    galaxy_id integer
+    planet_id integer
 );
 
 
-ALTER TABLE public.star OWNER TO freecodecamp;
+ALTER TABLE public.moon OWNER TO freecodecamp;
 
 --
 -- Name: planet; Type: TABLE; Schema: public; Owner: freecodecamp
@@ -100,11 +118,11 @@ CREATE TABLE public.planet (
 ALTER TABLE public.planet OWNER TO freecodecamp;
 
 --
--- Name: moon; Type: TABLE; Schema: public; Owner: freecodecamp
+-- Name: star; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
-CREATE TABLE public.moon (
-    moon_id integer NOT NULL,
+CREATE TABLE public.star (
+    star_id integer NOT NULL,
     name character varying NOT NULL,
     age integer NOT NULL,
     distance_from_earth integer,
@@ -112,11 +130,36 @@ CREATE TABLE public.moon (
     is_spherical boolean,
     has_life boolean,
     description text,
-    planet_id integer
+    galaxy_id integer
 );
 
 
-ALTER TABLE public.moon OWNER TO freecodecamp;
+ALTER TABLE public.star OWNER TO freecodecamp;
+
+--
+-- Data for Name: asteroid; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+--
+
+INSERT INTO public.asteroid VALUES (1, 'a', 1, 1, 1, true, true, 'a', 1);
+INSERT INTO public.asteroid VALUES (2, 'b', 1, 2, 1, true, true, 'b', 2);
+INSERT INTO public.asteroid VALUES (3, 'c', 1, 3, 1, true, true, 'c', 3);
+INSERT INTO public.asteroid VALUES (4, 'd', 1, 4, 1, true, true, 'd', 4);
+INSERT INTO public.asteroid VALUES (5, 'e', 1, 5, 1, true, true, 'e', 5);
+INSERT INTO public.asteroid VALUES (6, 'f', 1, 6, 1, true, true, 'f', 6);
+INSERT INTO public.asteroid VALUES (7, 'g', 1, 7, 1, true, true, 'g', 1);
+INSERT INTO public.asteroid VALUES (8, 'h', 1, 8, 1, true, true, 'h', 2);
+INSERT INTO public.asteroid VALUES (9, 'i', 1, 9, 1, true, true, 'i', 3);
+INSERT INTO public.asteroid VALUES (10, 'j', 1, 10, 1, true, true, 'j', 4);
+INSERT INTO public.asteroid VALUES (11, 'k', 1, 11, 1, true, true, 'k', 5);
+INSERT INTO public.asteroid VALUES (12, 'l', 1, 12, 1, true, true, 'l', 6);
+INSERT INTO public.asteroid VALUES (13, 'm', 1, 13, 1, true, true, 'm', 1);
+INSERT INTO public.asteroid VALUES (14, 'n', 1, 14, 1, true, true, 'n', 2);
+INSERT INTO public.asteroid VALUES (15, 'o', 1, 15, 1, true, true, 'o', 3);
+INSERT INTO public.asteroid VALUES (16, 'p', 1, 16, 1, true, true, 'p', 4);
+INSERT INTO public.asteroid VALUES (17, 'q', 1, 17, 1, true, true, 'q', 5);
+INSERT INTO public.asteroid VALUES (18, 'r', 1, 18, 1, true, true, 'r', 6);
+INSERT INTO public.asteroid VALUES (19, 's', 1, 19, 1, true, true, 's', 1);
+INSERT INTO public.asteroid VALUES (20, 't', 1, 20, 1, true, true, 't', 2);
 
 
 --
@@ -191,6 +234,22 @@ INSERT INTO public.star VALUES (6, 'f', 1, 6, 1, true, true, 'f', 6);
 
 
 --
+-- Name: asteroid asteroid_distance_from_earth_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_distance_from_earth_key UNIQUE (distance_from_earth);
+
+
+--
+-- Name: asteroid asteroid_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_pkey PRIMARY KEY (asteroid_id);
+
+
+--
 -- Name: galaxy galaxy_distance_from_earth_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
@@ -252,6 +311,14 @@ ALTER TABLE ONLY public.star
 
 ALTER TABLE ONLY public.star
     ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+
+--
+-- Name: asteroid asteroid_galaxy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.asteroid
+    ADD CONSTRAINT asteroid_galaxy_id_fkey FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
 
 
 --
